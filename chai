@@ -1,5 +1,6 @@
-var expect = require('chai').expect;
 
+
+var expect = require('chai').expect;
 describe("BDD",function(){
 	//总结
 	it('总结',function(){
