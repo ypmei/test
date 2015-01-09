@@ -1,0 +1,67 @@
+var expect = require('chai').expect;
+
+describe("BDD",function(){
+	//总结
+	it('总结',function(){
+		//布尔数据类型比较
+		expect(true).to.be.true;
+		expect(false).to.be.false;
+		expect(null).to.be.null;
+		expect(undefined).to.be.undefined;
+
+		//字符串比较，数字比较(===)
+		expect('').to.be.empty;
+		expect('hello').to.equal('hello');//(===)
+		expect(42).to.equal(42);//(===)
+		expect('hello').to.eql('hello');//(==)
+		expect(42).to.eql(42);//(==)
+		expect(10).to.be.above(5);//(>)
+		expect(5).to.be.below(10);//(<)
+		expect(10).to.be.at.least(10);//最小
+		expect(10).to.be.at.most(10);//最大
+		expect(3).to.within(2,4);//范围
+		expect(1.2).to.be.closeTo(1,1.5);//区间
+
+		//数组比较
+		expect([]).to.be.empty;
+		expect([1,2,3]).to.eql([1,2,3]);//顺序比较一样
+		expect([1,2,3]).to.have.members([3,2,1]);//判断数组成员相同
+		// expect([1,2,3]).to.have.members([2,3]);不能判断包含
+		expect([1,2,3]).to.include.members([3,2]);//判断是否是数组中的元素
+		expect([1,2,3,{id:2}]).to.deep.include.members([{id:2}]);//深度匹配数组中的对象
+
+		//对象比较
+		expect({}).to.be.empty();
+		expect({foo:'bar'}).to.eql({foo:'bar'});//==
+		expect({foo:'bar'}).to.deep.equal({foo:'bar'});//比较对象
+		expect({foo:'bar',mobile:{type:'apple'}}).to.deep.equal({foo:'bar',mobile:{type:'apple'}});
+		expect({foo:1,bar:2}).to.have.keys(['foo','bar']);//判断keys，缺一不可
+		expect({foo:1,bar:2,baz:3}).to.contain.keys('foo','bar');//判断包含keys。
+		var obj = {foo:'bar'};
+		expect(obj).to.have.property('foo');//判断key
+		expect(obj).to.have.property('foo','bar');//判断key:vlaue
+		var deepObj = {
+			green:{tea:'oneapm'},
+			teas:['red','green',{tea:'puer'}]
+		};
+		expect(deepObj).to.have.deep.property('green.tea','oneapm');//深度判断key:vlaue
+		expect(deepObj).to.have.deep.property('teas[0]','red');//深度判断key:vlaue
+		expect(deepObj).to.have.deep.property('teas[2].tea','puer');//深度判断key:vlaue
+
+		//函数比较
+		function kclass(){};
+		kclass.prototype.bar = function(){};
+		kclass.run = function(){};
+		expect(kclass).to.respondTo('bar');
+		var Tea = function(name){this.name = name;}
+		var tea = new Tea('longjing');
+		expect(tea).to.be.an.instanceof(Tea);//判断实例
+		expect([1,2,3]).to.be.an.instanceof(Array);//判断实例
+
+		//throw Error
+		expect(fn).to.throw(ReferenceError);
+		expect(fn).to.throw(Error);
+		expect(fn).to.throw(/bad function/);
+	});
+
+});
